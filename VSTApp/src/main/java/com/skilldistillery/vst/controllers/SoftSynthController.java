@@ -64,12 +64,17 @@ public class SoftSynthController {
 	@RequestMapping(path="create.do", params={"name", "company", "price", "oscillators", "synthesisType", "hasSampler", "image", "userCreated"})
 	public ModelAndView create(String name, String company, String price, String oscillators, String synthesisType, String hasSampler, String image, String userCreated) {
 		ModelAndView mv = new ModelAndView();
+		Softsynth synth;
+		try {
+		synth = new Softsynth(name, company, Double.valueOf(price), Integer.valueOf(oscillators), synthesisType, Boolean.valueOf(hasSampler), image, Boolean.valueOf(userCreated));
+		synth = dao.addSynth(synth);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			synth = null;
+		}
 		
-		Softsynth synth = new Softsynth(name, company, Double.valueOf(price), Integer.valueOf(oscillators), synthesisType, Boolean.valueOf(hasSampler), image, Boolean.valueOf(userCreated));
-		
-		boolean updated = dao.addSynth(synth);
-		
-		mv.addObject("updated", updated);
+		mv.addObject("synth", synth);
 		mv.setViewName("created");
 		return mv;
 	}
@@ -92,10 +97,15 @@ public class SoftSynthController {
 	@RequestMapping(path="update.do", params={"id", "name", "company", "price", "oscillators", "synthesisType", "hasSampler"})
 	public ModelAndView update(String id, String name, String company, String price, String oscillators, String synthesisType, String hasSampler) {
 		ModelAndView mv = new ModelAndView();
-		
-		Softsynth synth = new Softsynth(Integer.valueOf(id), name, company, Double.valueOf(price), Integer.valueOf(oscillators), synthesisType, Boolean.valueOf(hasSampler));
-		
-		dao.updateSynth(synth);
+		Softsynth synth;
+		try{
+			synth = new Softsynth(Integer.valueOf(id), name, company, Double.valueOf(price), Integer.valueOf(oscillators), synthesisType, Boolean.valueOf(hasSampler));
+			dao.updateSynth(synth);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			synth = null;
+		}
 		
 		mv.setViewName("updated");
 		return mv;

@@ -43,14 +43,14 @@ public class VSTDAOImpl implements VSTDAO {
 	}
 
 	@Override
-	public boolean addSynth(Softsynth synth) {
+	public Softsynth addSynth(Softsynth synth) {
 
 		//em.getTransaction().begin();
 		em.persist(synth);
 		em.flush();
 		//em.getTransaction().commit();
 		
-		return false;
+		return synth;
 	}
 	
 	@Override

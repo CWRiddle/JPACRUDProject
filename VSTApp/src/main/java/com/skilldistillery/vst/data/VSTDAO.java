@@ -8,7 +8,7 @@ public interface VSTDAO {
 
 	Softsynth findById(int id);
 	List<Softsynth> findAllSynths();
-	boolean addSynth(Softsynth synth);
+	Softsynth addSynth(Softsynth synth);
 	void updateSynth(Softsynth synth);
 	void deleteSynth(int synthId);
 	List<Softsynth> searchByKeyword(String keyword);
