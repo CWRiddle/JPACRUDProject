@@ -1,0 +1,8 @@
+@charset "UTF-8";
+.bg-dark{
+	color: white;
+}
+
+label{
+	color: white !important;
+}
